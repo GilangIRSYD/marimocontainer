@@ -1,0 +1,33 @@
+services:
+  marimo:
+    build: .
+
+    container_name: marimo
+
+    restart: unless-stopped
+
+    command: >
+      marimo edit /app
+      --headless
+      --host 0.0.0.0
+      --port 2718
+      --token-password ${MARIMO_PASSWORD}
+
+    ports:
+      - "2718:2718"
+
+    volumes:
+      - notebook:/app
+
+    environment:
+      POSTGRES_HOST: ${POSTGRES_HOST}
+      POSTGRES_PORT: ${POSTGRES_PORT}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+volumes:
+  notebook:
