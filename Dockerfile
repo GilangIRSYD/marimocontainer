@@ -16,7 +16,7 @@ COPY --link requirements.txt .
 RUN uv pip install -r requirements.txt
 
 # Copy file aplikasi
-COPY --link app.py .
+COPY --link app .
 
 EXPOSE 8080
 
