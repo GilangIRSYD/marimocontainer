@@ -7,7 +7,7 @@ services:
     restart: unless-stopped
 
     command: >
-      marimo edit /app
+      marimo edit app.py
       --headless
       --host 0.0.0.0
       --port 2718
