@@ -1,33 +1,24 @@
+version: '3.8'
+
 services:
   marimo:
-    build: .
-
-    container_name: marimo
-
-    restart: unless-stopped
-
-    command: >
-      marimo edit app/
-      --headless
-      --host 0.0.0.0
-      --port 2718
-      --token-password ${MARIMO_PASSWORD}
-
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: marimo-visualization-service
     ports:
-      - "2718:2718"
-
+      - "${MARIMO_PORT:-2718}:2718"
     volumes:
-      - notebook:/app
-
-    environment:
-      POSTGRES_HOST: ${POSTGRES_HOST}
-      POSTGRES_PORT: ${POSTGRES_PORT}
-      POSTGRES_DB: ${POSTGRES_DB}
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-
+      - ./notebooks:/app/notebooks
+    env_file:
+      - stack.env
     extra_hosts:
       - "host.docker.internal:host-gateway"
-
-volumes:
-  notebook:
+    command: >
+      sh -c "exec marimo edit 
+      --host 0.0.0.0 
+      --port 2718 
+      --token 
+      --token-password=\$$MARIMO_TOKEN_PASSWORD 
+      notebooks/"
+    restart: unless-stopped
