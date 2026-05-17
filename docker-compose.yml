@@ -19,6 +19,6 @@ services:
       --host 0.0.0.0 
       --port 2718 
       --token 
-      --token-password=\$$MARIMO_TOKEN_PASSWORD 
+      --token-password=$$MARIMO_TOKEN_PASSWORD 
       notebooks/"
     restart: unless-stopped
