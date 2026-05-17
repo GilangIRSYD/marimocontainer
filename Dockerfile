@@ -19,8 +19,9 @@ RUN pip install --no-cache-dir --upgrade pip setuptools wheel
 COPY requirements.txt /app/
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Create volume target folder
+# Create volume target folder and copy the sample notebooks
 RUN mkdir -p /app/notebooks
+COPY notebooks/ /app/notebooks/
 
 # Expose default Marimo port
 EXPOSE 2718
