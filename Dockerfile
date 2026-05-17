@@ -1,29 +1,16 @@
-# syntax=docker/dockerfile:1.4
-
-# Pilih versi Python yang sesuai
-FROM python:3.11-slim
-
-# Install uv untuk manajemen paket yang cepat
-COPY --from=ghcr.io/astral-sh/uv:0.4.20 /uv /bin/uv
-ENV UV_SYSTEM_PYTHON=1
+FROM ghcr.io/marimo-team/marimo:latest-sql
 
 WORKDIR /app
 
-# Copy requirements
-COPY --link requirements.txt .
+# Copy dependency definition and install standard packages
+COPY requirements.txt /app/
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Install dependencies
-RUN uv pip install -r requirements.txt
+# Create volume target folder
+RUN mkdir -p /app/notebooks
 
-RUN mkdir ./app
+# Expose default Marimo port
+EXPOSE 2718
 
-# Copy file aplikasi
-COPY --link app ./app
-
-EXPOSE 8080
-
-# Buat non-root user
-RUN useradd -m app_user
-USER app_user
-
-# CMD [ "marimo", "edit", "app.py", "--host", "0.0.0.0", "-p", "8080" ]
+# Default run command pointing to notebooks folder
+CMD ["marimo", "edit", "--host", "0.0.0.0", "--port", "2718", "notebooks/"]
