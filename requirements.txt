@@ -1,8 +1,17 @@
-marimo[recommended]
-sqlalchemy
-psycopg2-binary
-matplotlib
-plotly
-seaborn
-pandas
-numpy
+# Database Connection & SQL tools
+psycopg2-binary>=2.9.9
+asyncpg>=0.29.0
+sqlalchemy>=2.0.30
+sqlmodel>=0.0.19
+
+# Data Manipulation
+pandas>=2.2.2
+polars>=0.20.26
+numpy>=1.26.4
+
+# Advanced Visualizations
+plotly>=5.22.0
+altair>=5.3.0
+matplotlib>=3.9.0
+seaborn>=0.13.2
+plotnine>=0.13.6
