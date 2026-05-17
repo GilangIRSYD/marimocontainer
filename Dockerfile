@@ -15,8 +15,10 @@ COPY --link requirements.txt .
 # Install dependencies
 RUN uv pip install -r requirements.txt
 
+RUN mkdir ./app
+
 # Copy file aplikasi
-COPY --link app .
+COPY --link app ./app
 
 EXPOSE 8080
 
