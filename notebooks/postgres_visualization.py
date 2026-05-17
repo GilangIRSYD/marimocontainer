@@ -98,14 +98,14 @@ def __(engine, mo, pd, query_text, run_button):
         
     mo.vstack([
         query_status,
-        mo.ui.table(query_results) if query_results is not None else mo.empty()
+        mo.ui.table(query_results) if query_results is not None else None
     ])
     return query_results, query_status
 
 @app.cell
 def __(mo, px, query_results):
     # Interactive charting panel using Plotly (runs whenever query_results updates!)
-    chart_output = mo.empty()
+    chart_output = None
     
     if query_results is not None and not query_results.empty:
         # Check if there are at least two columns to plot
